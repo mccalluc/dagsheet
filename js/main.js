@@ -16,7 +16,7 @@ function main(container) {
       var div = document.createElement('div');
       var label;
       if (cell.isVertex()) {
-        label = cell.value.formula;
+        label = cell.value.output;
       } else if (cell.isEdge()) {
         label = cell.value.label;
       }
@@ -36,6 +36,7 @@ function main(container) {
       var previous = cell.value;
       if (cell.isVertex()) {
         cell.value.formula = value;
+        cell.value.output = make_named_args_function([], cell.value.formula)({});
       } else if (cell.isEdge()) {
         cell.value.label = value;
       }
@@ -45,8 +46,8 @@ function main(container) {
     var parent = graph.getDefaultParent();
     graph.getModel().beginUpdate();
     try {
-      var v1 = graph.insertVertex(parent, null, {formula: 'Hello,'}, 20, 20, 80, 30);
-      var v2 = graph.insertVertex(parent, null, {formula: 'World!'}, 200, 150, 80, 30);
+      var v1 = graph.insertVertex(parent, null, {formula: '2+2', output: '4'}, 20, 20, 80, 30);
+      var v2 = graph.insertVertex(parent, null, {formula: '"hello"', output: 'hello'}, 200, 150, 80, 30);
       var e1 = graph.insertEdge(parent, null, {label: 'parent'}, v1, v2);
     } finally {
       graph.getModel().endUpdate();
