@@ -1,9 +1,11 @@
+mxBasePath = 'https://unpkg.com/mxgraph@3.7.2-2/javascript/src';
+
 require.config({
-  // Karma serves files under /base, and our default is src
+  // Karma serves files under /base, and our default is js
   baseUrl: '/base/js',
 
   paths: {
-    test: '../test', // ie, up and over from js
+    test: '../test' // ie, up and over from js
   },
 
   // dynamically load all test files

@@ -12,6 +12,6 @@ script:
   - set -e
   - export PORT=8000
   - karma start --single-run --browsers Firefox
-  - node_modules/.bin/eslint {js,test}/*
+# TODO: - node_modules/.bin/eslint {js,test}/*
 # Is this redundant?
 # Travis checks package.json[scripts][test] for Node projects.
