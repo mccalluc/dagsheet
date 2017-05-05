@@ -17,7 +17,7 @@ define(['function_utils', 'graph_utils'],
           var div = document.createElement('div');
           var label;
           if (cell.isVertex()) {
-            label = cell.value.output;
+            label = cell.value.formula + ' → ' + cell.value.output;
           } else if (cell.isEdge()) {
             label = cell.value.label;
           }
@@ -36,7 +36,7 @@ define(['function_utils', 'graph_utils'],
         graph.getModel().valueForCellChanged = function (cell, value) {
           var previous = cell.value;
           if (cell.isVertex()) {
-            var inputs = {};
+            var inputs = {}; // TODO
             console.log('edges', cell.edges);
             cell.value.formula = value;
             cell.value.output = function_utils.make_named_args_function([], value)(inputs);
@@ -49,17 +49,16 @@ define(['function_utils', 'graph_utils'],
         var parent = graph.getDefaultParent();
         graph.getModel().beginUpdate();
         try {
-          var v1 = graph.insertVertex(parent, null, {formula: '2+2', output: '4'}, 20, 20, 80, 30);
-          var v2 = graph.insertVertex(parent, null, {formula: '"hello"', output: 'hello'}, 200, 150, 80, 30);
+          var v1 = graph.insertVertex(parent, null, {formula: '2+2'}, 20, 20, 80, 30);
+          var v2 = graph.insertVertex(parent, null, {formula: '"hello"'}, 200, 150, 80, 30);
           var e1 = graph.insertEdge(parent, null, {label: 'parent'}, v1, v2);
         } finally {
           graph.getModel().endUpdate();
         }
 
         simple_graph = graph_utils.simplify_graph(graph);
-        console.log(simple_graph);
         in_order = graph_utils.topological_order(simple_graph);
-        console.log(in_order);
+        graph_utils.update_graph(graph, in_order);
       }
     }
   }

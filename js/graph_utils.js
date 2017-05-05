@@ -65,9 +65,27 @@ define([],
       return no_sources
     }
 
+    /**
+     * Given an mxGraph and a list of vertices in topological order,
+     * set their user values.
+     * @param simple_graph
+     */
+    function update_graph(graph, in_order) {
+      graph.getModel().beginUpdate();
+      try {
+        for (var i = 0; i < in_order.length; i++) {
+          var cell = graph.getModel().cells[in_order[i]];
+          graph.getModel().setValue(cell, cell.value.formula);
+        }
+      } finally {
+        graph.getModel().endUpdate();
+      }
+    }
+
     return {
       topological_order: topological_order,
-      simplify_graph: simplify_graph
+      simplify_graph: simplify_graph,
+      update_graph: update_graph
     }
   }
 );
