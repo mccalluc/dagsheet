@@ -24,9 +24,17 @@ define(['function_utils'],
       var previous = cell.value;
       if (cell.isVertex()) {
         var inputs = {}; // TODO
-        console.log('edges', cell.edges);
+        var edges = cell.edges;
+        for (var i = 0; i < edges.length; i++) {
+          var edge = edges[i];
+          if (edge.source.id != cell.id) {
+            inputs[edge.value.label] = edge.source.value.output;
+          }
+        }
+        console.log('inputs', inputs);
         cell.value.formula = value;
-        cell.value.output = function_utils.make_named_args_function([], value)(inputs);
+        var named_args_function = function_utils.make_named_args_function(Object.keys(inputs), value);
+        cell.value.output = named_args_function(inputs);
       } else if (cell.isEdge()) {
         cell.value.label = value;
       }
