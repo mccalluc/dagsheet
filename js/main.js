@@ -29,9 +29,7 @@ define(['graph_utils', 'mx_utils'],
           model.endUpdate();
         }
 
-        simple_graph = graph_utils.simplify_graph(graph);
-        in_order = graph_utils.topological_order(simple_graph);
-        graph_utils.update_graph(graph, in_order);
+        graph_utils.update_graph(graph);
       }
     }
   }

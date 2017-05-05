@@ -5,8 +5,9 @@ define([],
      * @param graph
      */
     function simplify_graph(graph) {
+      var model = graph.model;
       var hash = {};
-      var cells = graph.model.getDescendants(graph.model.getRoot());
+      var cells = model.getDescendants(model.getRoot());
       for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         if (cell.isVertex()) {
@@ -70,7 +71,10 @@ define([],
      * set their user values.
      * @param simple_graph
      */
-    function update_graph(graph, in_order) {
+    function update_graph(graph) {
+      var simple_graph = simplify_graph(graph);
+      var in_order = topological_order(simple_graph);
+
       graph.getModel().beginUpdate();
       try {
         for (var i = 0; i < in_order.length; i++) {
@@ -83,9 +87,11 @@ define([],
     }
 
     return {
+      update_graph: update_graph,
+
+      // These are exported only for testing:
       topological_order: topological_order,
-      simplify_graph: simplify_graph,
-      update_graph: update_graph
+      simplify_graph: simplify_graph
     }
   }
 );
