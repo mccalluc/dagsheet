@@ -22,9 +22,14 @@ define(['graph_utils', 'mx_utils'],
         var parent = graph.getDefaultParent();
         model.beginUpdate();
         try {
-          var v1 = graph.insertVertex(parent, null, {formula: '2+2'}, 20, 20, 80, 30);
-          var v2 = graph.insertVertex(parent, null, {formula: '"hello"'}, 200, 150, 80, 30);
-          var e1 = graph.insertEdge(parent, null, {label: 'parent'}, v1, v2);
+          var name = graph.insertVertex(parent, null, {formula: '"World"'}, 20, 20, 80, 30);
+          var greet = graph.insertVertex(parent, null, {formula: 'function(name){return "Hello "+name+"!"}'}, 220, 20, 80, 30);
+
+          var greet_name = graph.insertVertex(parent, null, {formula: 'greet(name)'}, 120, 120, 80, 30);
+          
+          var name_edge = graph.insertEdge(parent, null, {label: 'name'}, name, greet_name);
+          var greet_edge = graph.insertEdge(parent, null, {label: 'greet'}, greet, greet_name);
+
         } finally {
           model.endUpdate();
         }
