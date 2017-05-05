@@ -1,5 +1,5 @@
-define(['function_utils'],
-  function (function_utils) {
+define(['function_utils', 'graph_utils'],
+  function (function_utils, graph_utils) {
     return function (container) {
       if (!mxClient.isBrowserSupported()) {
         mxUtils.error('Browser not supported', 200, false);
@@ -55,6 +55,11 @@ define(['function_utils'],
         } finally {
           graph.getModel().endUpdate();
         }
+
+        simple_graph = graph_utils.simplify_graph(graph);
+        console.log(simple_graph);
+        in_order = graph_utils.topological_order(simple_graph);
+        console.log(in_order);
       }
     }
   }
