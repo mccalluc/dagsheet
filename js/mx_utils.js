@@ -4,7 +4,8 @@ define(['function_utils'],
       var div = document.createElement('div');
       var label;
       if (cell.isVertex()) {
-        label = cell.value.formula + ' → ' + cell.value.output;
+        var output_display = (typeof cell.value.output) == 'function' ? 'function()' : cell.value.output;
+        label = cell.value.formula + ' → ' + output_display;
       } else if (cell.isEdge()) {
         label = cell.value.label;
       }
@@ -23,7 +24,7 @@ define(['function_utils'],
     function value_for_cell_changed(cell, value) {
       var previous = cell.value;
       if (cell.isVertex()) {
-        var inputs = {}; // TODO
+        var inputs = {};
         var edges = cell.edges;
         for (var i = 0; i < edges.length; i++) {
           var edge = edges[i];
@@ -31,7 +32,6 @@ define(['function_utils'],
             inputs[edge.value.label] = edge.source.value.output;
           }
         }
-        console.log('inputs', inputs);
         cell.value.formula = value;
         var named_args_function = function_utils.make_named_args_function(Object.keys(inputs), value);
         cell.value.output = named_args_function(inputs);
@@ -41,10 +41,23 @@ define(['function_utils'],
       return previous;
     }
 
+    function decode(graph, filename) {
+      var root = mxUtils.load(filename).getDocumentElement();
+      var codec = new mxCodec(root.ownerDocument);
+      codec.decode(root, graph.getModel());
+    }
+
+    function encode(graph) {
+      var codec = new mxCodec();
+      return codec.encode(graph.getModel());
+    }
+
     return {
       get_label: get_label,
       get_editing_value: get_editing_value,
-      value_for_cell_changed: value_for_cell_changed
+      value_for_cell_changed: value_for_cell_changed,
+      decode: decode,
+      encode: encode
     }
   }
 );
