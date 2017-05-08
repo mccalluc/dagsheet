@@ -13,7 +13,7 @@ define([],
         if (cell.isVertex()) {
           id = cell.id;
           cell_sources = [];
-          var all_edges = cell.edges;
+          var all_edges = cell.edges || [];
           for (var j = 0; j < all_edges.length; j++) {
             var edge = all_edges[j];
             var source_id = edge.source.id;
@@ -28,16 +28,32 @@ define([],
     }
 
     /**
-     * Given a simple graph, return the vertices in topological order.
+     * Given a simple graph, return the vertices in topological order,
+     * with unlinked vertices first.
+     * TODO: Dependencies between globals?
      * @param simple_graph
      */
     function topological_order(simple_graph) {
       //console.log('at the beginning:', simple_graph);
       var no_sources = [];
+      // Find all the nodes which are sources to anything:
+      var all_sources = {};
+      for (var key in simple_graph) {
+        for (var i=0; i < simple_graph[key].length; i++) {
+          var source = simple_graph[key][i];
+          all_sources[source] = 1;
+        }
+      }
       // Remove nodes with no source links:
       for (var key in simple_graph) {
         if (simple_graph[key].length == 0) {
-          no_sources.push(key);
+          if (all_sources[key]) {
+            no_sources.push(key);
+          } else {
+            // If it has no sources, AND is not itself a source,
+            // then it should be a global definition, and should be handled first.
+            no_sources.unshift(key);
+          }
           delete simple_graph[key]
         }
       }

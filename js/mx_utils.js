@@ -21,11 +21,18 @@ define(['function_utils'],
       }
     }
 
+    var globals = {};
+
     function value_for_cell_changed(cell, value) {
       var previous = cell.value;
       if (cell.isVertex()) {
         var inputs = {};
-        var edges = cell.edges;
+        // Set global inputs:
+        for (var key in globals) {
+          inputs[key] = globals[key];
+        }
+        // Set the local inputs:
+        var edges = cell.edges || [];
         for (var i = 0; i < edges.length; i++) {
           var edge = edges[i];
           if (edge.source.id != cell.id) {
@@ -33,8 +40,17 @@ define(['function_utils'],
           }
         }
         cell.value.formula = value;
-        var named_args_function = function_utils.make_named_args_function(Object.keys(inputs), value);
-        cell.value.output = named_args_function(inputs);
+        var assign_global = String(value).match(/^\s*\w+\s*=\b/);
+        if (assign_global) {
+          // TODO: Not intending to have inputs to globals right now, but...
+          globals[assign_global[1]] =
+              function_utils.make_named_args_function(Object.keys(inputs), assign_global[2]);
+          cell.value.output = 'GLOBAL'; // TODO
+        } else {
+          var named_args_function =
+              function_utils.make_named_args_function(Object.keys(inputs), value);
+          cell.value.output = named_args_function(inputs);
+        }
       } else if (cell.isEdge()) {
         cell.value.label = value;
       }
