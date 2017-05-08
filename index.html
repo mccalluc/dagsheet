@@ -8,16 +8,28 @@
 
 <body>
     <div>
-        Source code available on <a href="https://github.com/mccalluc/dagsheet">GitHub</a>.
+        <div style="float: left;">
+            <a href="?hello-world">hello-world</a> |
+            <a href="?fibonacci">fibonacci</a>
+        </div>
+        <div style="float: right;">
+            <a href="https://github.com/mccalluc/dagsheet">source</a>
+        </div>
     </div>
+
 	<div id="container">
 	</div>
 
-	<script type="text/javascript">
-		mxBasePath = 'https://unpkg.com/mxgraph@3.7.2-2/javascript/src';
-	</script>
+    <!-- TODO: Check if localhost and serve from vendor if so? -->
+	<script type="text/javascript" src="vendor/mxClient.min.js"></script>
+	<script type="text/javascript" src="vendor/require.min.js" data-main="index.js"></script>
+
+	<!--
+	<script type="text/javascript">mxBasePath = 'https://unpkg.com/mxgraph@3.7.2-2/javascript/src';</script>
 	<script type="text/javascript" src="https://unpkg.com/mxgraph@3.7.2-2/javascript/src/js/mxClient.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"
         data-main="index.js"></script>
+    -->
+
 </body>
 </html>

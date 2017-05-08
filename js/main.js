@@ -22,7 +22,13 @@ define(['graph_utils', 'mx_utils'],
         var parent = graph.getDefaultParent();
         model.beginUpdate();
         try {
-          mx_utils.decode(graph, 'examples/hello-world.xml')
+          if (! document.location.search) {
+            window.location.replace(window.location + '?hello-world');
+            return;
+          } else {
+            var file_stem = document.location.search.slice(1);
+            mx_utils.decode(graph, 'examples/' + file_stem + '.xml');
+          }
         } finally {
           model.endUpdate();
         }

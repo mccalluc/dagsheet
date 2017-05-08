@@ -1,0 +1,73 @@
+<mxGraphModel>
+    <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="2" vertex="1" parent="1">
+            <Object formula="1" as="value"/>
+            <mxGeometry x="20" y="0" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" vertex="1" parent="1">
+            <Object formula="1" as="value"/>
+            <mxGeometry x="20" y="50" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="4" vertex="1" parent="1">
+            <Object formula="a + b" as="value"/>
+            <mxGeometry x="20" y="100" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" vertex="1" parent="1">
+            <Object formula="a + b" as="value"/>
+            <mxGeometry x="20" y="150" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="6" vertex="1" parent="1">
+            <Object formula="a + b" as="value"/>
+            <mxGeometry x="20" y="200" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" vertex="1" parent="1">
+            <Object formula="a + b" as="value"/>
+            <mxGeometry x="20" y="250" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="8" edge="1" parent="1" source="2" target="4">
+            <Object label="a" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" edge="1" parent="1" source="3" target="4">
+            <Object label="b" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="10" edge="1" parent="1" source="3" target="5">
+            <Object label="a" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="4" target="5">
+            <Object label="b" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="10" edge="1" parent="1" source="4" target="6">
+            <Object label="a" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="5" target="6">
+            <Object label="b" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="10" edge="1" parent="1" source="5" target="7">
+            <Object label="a" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" edge="1" parent="1" source="6" target="7">
+            <Object label="b" as="value"/>
+            <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="12" vertex="1" parent="1">
+            <Object formula="f = function(a,b) {return a + b}" as="value"/>
+            <mxGeometry x="20" y="250" width="100" height="30" as="geometry"/>
+        </mxCell>
+    </root>
+</mxGraphModel>

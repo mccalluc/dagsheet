@@ -32,7 +32,7 @@ define([],
      */
     function make_named_args_function(parameter_names, body) {
       name_of_single_arg = 'named_parameters';
-      var statements = body.split(';'); // TODO: Not as bad as above, but still...
+      var statements = String(body).split(';'); // TODO: Not as bad as above, but still...
       for (var i = 0; i < parameter_names.length; i++) {
         statements.unshift(
             'var ' + parameter_names[i] + ' = ' + name_of_single_arg + '.' + parameter_names[i]);
