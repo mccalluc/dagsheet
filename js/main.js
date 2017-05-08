@@ -1,5 +1,5 @@
-define(['function_utils', 'graph_utils'],
-  function (function_utils, graph_utils) {
+define(['graph_utils', 'mx_utils'],
+  function (graph_utils, mx_utils) {
     return function (container) {
       if (!mxClient.isBrowserSupported()) {
         mxUtils.error('Browser not supported', 200, false);
@@ -13,53 +13,26 @@ define(['function_utils', 'graph_utils'],
 
         new mxKeyHandler(graph);
 
-        graph.getLabel = function (cell) {
-          var div = document.createElement('div');
-          var label;
-          if (cell.isVertex()) {
-            label = cell.value.output;
-          } else if (cell.isEdge()) {
-            label = cell.value.label;
-          }
-          mxUtils.write(div, label);
-          return div;
-        };
+        graph.getLabel = mx_utils.get_label;
+        graph.getEditingValue = mx_utils.get_editing_value;
 
-        graph.getEditingValue = function (cell, event) {
-          if (cell.isVertex()) {
-            return cell.value.formula;
-          } else if (cell.isEdge()) {
-            return cell.value.label;
-          }
-        };
-
-        graph.getModel().valueForCellChanged = function (cell, value) {
-          var previous = cell.value;
-          if (cell.isVertex()) {
-            var inputs = {};
-            console.log('edges', cell.edges);
-            cell.value.formula = value;
-            cell.value.output = function_utils.make_named_args_function([], value)(inputs);
-          } else if (cell.isEdge()) {
-            cell.value.label = value;
-          }
-          return previous;
-        };
+        var model = graph.getModel();
+        model.valueForCellChanged = mx_utils.value_for_cell_changed;
 
         var parent = graph.getDefaultParent();
-        graph.getModel().beginUpdate();
+        model.beginUpdate();
         try {
-          var v1 = graph.insertVertex(parent, null, {formula: '2+2', output: '4'}, 20, 20, 80, 30);
-          var v2 = graph.insertVertex(parent, null, {formula: '"hello"', output: 'hello'}, 200, 150, 80, 30);
-          var e1 = graph.insertEdge(parent, null, {label: 'parent'}, v1, v2);
+          if (! document.location.search) {
+            window.location.replace(window.location + '?hello-world');
+            return;
+          } else {
+            var file_stem = document.location.search.slice(1);
+            mx_utils.decode(graph, 'examples/' + file_stem + '.xml');
+          }
         } finally {
-          graph.getModel().endUpdate();
+          model.endUpdate();
         }
-
-        simple_graph = graph_utils.simplify_graph(graph);
-        console.log(simple_graph);
-        in_order = graph_utils.topological_order(simple_graph);
-        console.log(in_order);
+        graph_utils.update_graph(graph);
       }
     }
   }

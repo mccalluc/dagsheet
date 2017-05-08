@@ -12,7 +12,7 @@ define([],
      */
     function make_positional_args_function(parameter_names, body) {
       var for_apply = parameter_names.slice(); // shallow copy
-      var statements = body.split(';'); // TODO: actually parse the JS
+      var statements = body.split(';'); // TODO: Parse JS correctly!
       statements[statements.length-1] =
           'return ' + statements[statements.length-1];
       var mod_body = statements.join(';');
@@ -32,7 +32,7 @@ define([],
      */
     function make_named_args_function(parameter_names, body) {
       name_of_single_arg = 'named_parameters';
-      var statements = body.split(';');
+      var statements = String(body).split(';'); // TODO: Not as bad as above, but still...
       for (var i = 0; i < parameter_names.length; i++) {
         statements.unshift(
             'var ' + parameter_names[i] + ' = ' + name_of_single_arg + '.' + parameter_names[i]);

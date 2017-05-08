@@ -5,14 +5,15 @@ define([],
      * @param graph
      */
     function simplify_graph(graph) {
+      var model = graph.model;
       var hash = {};
-      var cells = graph.model.getDescendants(graph.model.getRoot());
+      var cells = model.getDescendants(model.getRoot());
       for (var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         if (cell.isVertex()) {
           id = cell.id;
           cell_sources = [];
-          var all_edges = cell.edges;
+          var all_edges = cell.edges || [];
           for (var j = 0; j < all_edges.length; j++) {
             var edge = all_edges[j];
             var source_id = edge.source.id;
@@ -27,16 +28,32 @@ define([],
     }
 
     /**
-     * Given a simple graph, return the vertices in topological order.
+     * Given a simple graph, return the vertices in topological order,
+     * with unlinked vertices first.
+     * TODO: Dependencies between globals?
      * @param simple_graph
      */
     function topological_order(simple_graph) {
       //console.log('at the beginning:', simple_graph);
       var no_sources = [];
+      // Find all the nodes which are sources to anything:
+      var all_sources = {};
+      for (var key in simple_graph) {
+        for (var i=0; i < simple_graph[key].length; i++) {
+          var source = simple_graph[key][i];
+          all_sources[source] = 1;
+        }
+      }
       // Remove nodes with no source links:
       for (var key in simple_graph) {
         if (simple_graph[key].length == 0) {
-          no_sources.push(key);
+          if (all_sources[key]) {
+            no_sources.push(key);
+          } else {
+            // If it has no sources, AND is not itself a source,
+            // then it should be a global definition, and should be handled first.
+            no_sources.unshift(key);
+          }
           delete simple_graph[key]
         }
       }
@@ -65,7 +82,30 @@ define([],
       return no_sources
     }
 
+    /**
+     * Given an mxGraph and a list of vertices in topological order,
+     * set their user values.
+     * @param simple_graph
+     */
+    function update_graph(graph) {
+      var simple_graph = simplify_graph(graph);
+      var in_order = topological_order(simple_graph);
+
+      graph.getModel().beginUpdate();
+      try {
+        for (var i = 0; i < in_order.length; i++) {
+          var cell = graph.getModel().cells[in_order[i]];
+          graph.getModel().setValue(cell, cell.value.formula);
+        }
+      } finally {
+        graph.getModel().endUpdate();
+      }
+    }
+
     return {
+      update_graph: update_graph,
+
+      // These are exported only for testing:
       topological_order: topological_order,
       simplify_graph: simplify_graph
     }
