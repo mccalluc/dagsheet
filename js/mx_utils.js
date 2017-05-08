@@ -4,7 +4,14 @@ define(['function_utils'],
       var div = document.createElement('div');
       var label;
       if (cell.isVertex()) {
-        var output_display = (typeof cell.value.output) == 'function' ? 'function()' : cell.value.output;
+        var output_display;
+        if (typeof cell.value.output == 'function') {
+          output_display = 'f()';
+        } else if (typeof cell.value.output == 'number') {
+          output_display = Math.round(1000 * cell.value.output)/1000; // TODO: define number formatting in front matter
+        } else {
+          output_display = cell.value.output;
+        }
         label = cell.value.formula + ' → ' + output_display;
       } else if (cell.isEdge()) {
         label = cell.value.label;
