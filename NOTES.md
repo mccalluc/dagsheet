@@ -1,5 +1,3 @@
-Chuck McCallum
-
 I hoped to begin creating software which could support the creation, display, editting, and evaluation of calculations linked in directed acyclic graphs. Taking sequence alignment algorithms as an example, there is a huge gap between diagrams on paper and implementations in code, and it feels like there is room for an intermediate tool which would allow you to view all the steps of an algorithm, the output of each step, and the dependencies between steps. The problem does not feel esoteric to me, and I would be delighted to find something on the web that already does this.
 
 In some cases, spreadsheets can bridge this gap, but there are shortcomings. Formulas are repeated down the column, rather than being defined once: To experiment with alternate functions, the cells must be replaced. Also, the dependencies between cells are not apparent. When editting one cell, there may be a color coding to indicate how it depends on other cells, but there is no way to get an overview of all relationships at once.
