@@ -68,7 +68,15 @@ define(['function_utils', 'graph_utils'],
     }
 
     function decode(graph, filename) {
-      var root = mxUtils.load(filename).getDocumentElement();
+      var input_xml = mxUtils.load(filename).getDocumentElement();
+      var xsl = mxUtils.load('xsl/dagsheet-to-mxgraph.xsl').getDocumentElement();
+      var processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+      var root = processor.transformToDocument(input_xml).documentElement;
+
+
+      // var root = mxUtils.load(filename).getDocumentElement();
+      console.log(root);
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
     }

@@ -38,14 +38,15 @@ define([],
       var no_sources = [];
       // Find all the nodes which are sources to anything:
       var all_sources = {};
-      for (var key in simple_graph) {
+      var key;
+      for (key in simple_graph) {
         for (var i=0; i < simple_graph[key].length; i++) {
           var source = simple_graph[key][i];
           all_sources[source] = 1;
         }
       }
       // Remove nodes with no source links:
-      for (var key in simple_graph) {
+      for (key in simple_graph) {
         if (simple_graph[key].length == 0) {
           if (all_sources[key]) {
             no_sources.push(key);
@@ -60,7 +61,7 @@ define([],
       //console.log('no_sources at the start:', no_sources);
       //console.log('after deleting some nodes:', simple_graph);
       // Remove links whose sources we just removed:
-      for (var key in simple_graph) {
+      for (key in simple_graph) {
         var remaining_links = [];
         var old_links = simple_graph[key];
         for (var i = 0; i < old_links.length; i++) {
