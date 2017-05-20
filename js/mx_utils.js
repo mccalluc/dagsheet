@@ -1,5 +1,5 @@
-define(['function_utils'],
-  function (function_utils) {
+define(['function_utils', 'graph_utils'],
+  function (function_utils, graph_utils) {
     function get_label(cell) {
       var div = document.createElement('div');
       var label;
@@ -60,6 +60,9 @@ define(['function_utils'],
         }
       } else if (cell.isEdge()) {
         cell.value.label = value;
+      }
+      if (cell.graph) {
+        graph_utils.update_next_cell(cell.graph, cell);
       }
       return previous;
     }
