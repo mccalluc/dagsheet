@@ -1,10 +1,21 @@
 <page>
-    <box x="10" y="1">1</box>
+    <box id="1" x="10" y="1">1</box>
 
-    <box x="8" y="3">1</box>
-    <box x="12" y="3">1</box>
+    <box id="2" x="8" y="3">1</box>
+    <box id="3" x="12" y="3">1</box>
 
-    <box x="6" y="5">1</box>
-    <box x="10" y="5">1</box>
-    <box x="14" y="5">1</box>
+    <box id="4" x="6" y="5">1</box>
+    <box id="5" x="10" y="5">1</box>
+    <box id="6" x="14" y="5">1</box>
+
+    <box id="7" x="4" y="7">1</box>
+    <box id="8" x="8" y="7">1</box>
+    <box id="9" x="12" y="7">1</box>
+    <box id="10" x="16" y="7">1</box>
+
+    <box id="11" x="2" y="9">1</box>
+    <box id="12" x="6" y="9">1</box>
+    <box id="13" x="10" y="9">1</box>
+    <box id="14" x="14" y="9">1</box>
+    <box id="15" x="18" y="9">1</box>
 </page>
