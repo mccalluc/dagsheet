@@ -38,14 +38,15 @@ define([],
       var no_sources = [];
       // Find all the nodes which are sources to anything:
       var all_sources = {};
-      for (var key in simple_graph) {
+      var key;
+      for (key in simple_graph) {
         for (var i=0; i < simple_graph[key].length; i++) {
           var source = simple_graph[key][i];
           all_sources[source] = 1;
         }
       }
       // Remove nodes with no source links:
-      for (var key in simple_graph) {
+      for (key in simple_graph) {
         if (simple_graph[key].length == 0) {
           if (all_sources[key]) {
             no_sources.push(key);
@@ -60,7 +61,7 @@ define([],
       //console.log('no_sources at the start:', no_sources);
       //console.log('after deleting some nodes:', simple_graph);
       // Remove links whose sources we just removed:
-      for (var key in simple_graph) {
+      for (key in simple_graph) {
         var remaining_links = [];
         var old_links = simple_graph[key];
         for (var i = 0; i < old_links.length; i++) {
@@ -83,27 +84,57 @@ define([],
     }
 
     /**
-     * Given an mxGraph and a list of vertices in topological order,
-     * set their user values.
-     * @param simple_graph
+     * Updates the next cell after the current_cell in topological order.
+     * @param graph
+     * @param current_cell
+     */
+    function update_next_cell(graph, current_cell) {
+      var simple_graph = simplify_graph(graph);
+      var in_order = topological_order(simple_graph);
+
+      var model = graph.getModel();
+      model.beginUpdate();
+      try {
+        var after_current = false;
+        for (var i = 0; i < in_order.length; i++) {
+          var cell = model.cells[in_order[i]];
+          if (after_current) {
+            model.setValue(cell, cell.value.formula);
+            break;
+          }
+          if (cell === current_cell) {
+            after_current = true;
+          }
+        }
+      } finally {
+        model.endUpdate();
+      }
+    }
+
+    /**
+     * Given an mxGraph, set the user values.
+     * @param graph
      */
     function update_graph(graph) {
       var simple_graph = simplify_graph(graph);
       var in_order = topological_order(simple_graph);
 
-      graph.getModel().beginUpdate();
+      var model = graph.getModel();
+      model.beginUpdate();
       try {
         for (var i = 0; i < in_order.length; i++) {
-          var cell = graph.getModel().cells[in_order[i]];
-          graph.getModel().setValue(cell, cell.value.formula);
+          var cell = model.cells[in_order[i]];
+          model.setValue(cell, cell.value.formula);
+          cell.graph = graph;
         }
       } finally {
-        graph.getModel().endUpdate();
+        model.endUpdate();
       }
     }
 
     return {
       update_graph: update_graph,
+      update_next_cell: update_next_cell,
 
       // These are exported only for testing:
       topological_order: topological_order,

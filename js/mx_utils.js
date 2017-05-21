@@ -1,5 +1,5 @@
-define(['function_utils'],
-  function (function_utils) {
+define(['function_utils', 'graph_utils'],
+  function (function_utils, graph_utils) {
     function get_label(cell) {
       var div = document.createElement('div');
       var label;
@@ -61,11 +61,22 @@ define(['function_utils'],
       } else if (cell.isEdge()) {
         cell.value.label = value;
       }
+      if (cell.graph) {
+        graph_utils.update_next_cell(cell.graph, cell);
+      }
       return previous;
     }
 
     function decode(graph, filename) {
-      var root = mxUtils.load(filename).getDocumentElement();
+      var input_xml = mxUtils.load(filename).getDocumentElement();
+      var xsl = mxUtils.load('xsl/dagsheet-to-mxgraph.xsl').getDocumentElement();
+      var processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+      var root = processor.transformToDocument(input_xml).documentElement;
+
+
+      // var root = mxUtils.load(filename).getDocumentElement();
+      console.log(root);
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
     }

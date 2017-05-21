@@ -1,90 +1,22 @@
-<mxGraphModel>
-    <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
+<page>
+    <box id="2" x="2" y="1" w="3">1</box>
+    <box id="3" x="2" y="3" w="3">1</box>
+    <box id="4" x="2" y="5" w="3">f(a,b)</box>
+    <box id="5" x="2" y="7" w="3">f(a,b)</box>
+    <box id="6" x="2" y="9" w="3">f(a,b)</box>
+    <box id="7" x="2" y="11" w="3">f(a,b)</box>
 
-        <mxCell id="2" vertex="1" parent="1">
-            <Object formula="1" as="value"/>
-            <mxGeometry x="50" y="50" width="100" height="30" as="geometry"/>
-        </mxCell>
-        <mxCell id="3" vertex="1" parent="1">
-            <Object formula="1" as="value"/>
-            <mxGeometry x="50" y="100" width="100" height="30" as="geometry"/>
-        </mxCell>
+    <box id="10" x="9" y="1" w="9">f = function(a, b) {return a + b}</box>
 
-        <mxCell id="4" vertex="1" parent="1">
-            <Object formula="f(a, b)" as="value"/>
-            <mxGeometry x="50" y="150" width="100" height="30" as="geometry"/>
-        </mxCell>
-        <mxCell id="5" vertex="1" parent="1">
-            <Object formula="f(a, b)" as="value"/>
-            <mxGeometry x="50" y="200" width="100" height="30" as="geometry"/>
-        </mxCell>
-        <mxCell id="6" vertex="1" parent="1">
-            <Object formula="f(a, b)" as="value"/>
-            <mxGeometry x="50" y="250" width="100" height="30" as="geometry"/>
-        </mxCell>
-        <mxCell id="7" vertex="1" parent="1">
-            <Object formula="f(a, b)" as="value"/>
-            <mxGeometry x="50" y="300" width="100" height="30" as="geometry"/>
-        </mxCell>
+    <arrow from="2" to="4" x="5" y="3">a</arrow>
+    <arrow from="3" to="4">b</arrow>
 
-        <mxCell id="8" edge="1" parent="1" source="2" target="4">
-            <Object label="a" as="value"/>
-            <mxGeometry as="geometry" relative="1">
-                <Array as="points">
-                    <Object x="200" y="115"/>
-                </Array>
-            </mxGeometry>
-        </mxCell>
-        <mxCell id="9" edge="1" parent="1" source="3" target="4">
-            <Object label="b" as="value"/>
-            <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    <arrow from="3" to="5" x="5" y="5">a</arrow>
+    <arrow from="4" to="5">b</arrow>
 
-        <mxCell id="10" edge="1" parent="1" source="3" target="5">
-            <Object label="a" as="value"/>
-            <mxGeometry as="geometry" relative="1">
-                <Array as="points">
-                    <Object x="200" y="165"/>
-                </Array>
-            </mxGeometry>
-        </mxCell>
-        <mxCell id="11" edge="1" parent="1" source="4" target="5">
-            <Object label="b" as="value"/>
-            <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
+    <arrow from="4" to="6" x="5" y="7">a</arrow>
+    <arrow from="5" to="6">b</arrow>
 
-        <mxCell id="12" edge="1" parent="1" source="4" target="6">
-            <Object label="a" as="value"/>
-            <mxGeometry as="geometry" relative="1">
-                <Array as="points">
-                    <Object x="200" y="215"/>
-                </Array>
-            </mxGeometry>
-        </mxCell>
-        <mxCell id="13" edge="1" parent="1" source="5" target="6">
-            <Object label="b" as="value"/>
-            <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="14" edge="1" parent="1" source="5" target="7">
-            <Object label="a" as="value"/>
-            <mxGeometry as="geometry" relative="1">
-                <Array as="points">
-                    <Object x="200" y="265"/>
-                </Array>
-            </mxGeometry>
-        </mxCell>
-        <mxCell id="15" edge="1" parent="1" source="6" target="7">
-            <Object label="b" as="value"/>
-            <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="16" vertex="1" parent="1">
-            <Object formula="f = function(a, b) {return a + b}" as="value"/>
-            <mxGeometry x="300" y="50" width="250" height="30" as="geometry"/>
-        </mxCell>
-
-    </root>
-</mxGraphModel>
+    <arrow from="5" to="7" x="5" y="9">a</arrow>
+    <arrow from="6" to="7">b</arrow>
+</page>
