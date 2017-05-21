@@ -1,7 +1,7 @@
 <page>
-    <box id="2" x="1" y="1" w="4" formula="&quot;World&quot;"/>
-    <box id="3" x="6" y="1" w="10" formula="function(name){return &quot;Hello, &quot;+name+&quot;!&quot;}" />
-    <box id="4" x="4" y="4" w="5" formula="greet(name)" />
-    <arrow label="name"  from="2" to="4"/>
-    <arrow label="greet" from="3" to="4"/>
+    <box id="2" x="1" y="1" w="4">&quot;World&quot;</box>
+    <box id="3" x="6" y="1" w="10">function(name){return &quot;Hello &quot;+name+&quot;!&quot;}</box>
+    <box id="4" x="4" y="4" w="5">greet(name)</box>
+    <arrow from="2" to="4">name</arrow>
+    <arrow from="3" to="4">greet</arrow>
 </page>
