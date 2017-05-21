@@ -3,6 +3,8 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
+    <xsl:variable name="d">30</xsl:variable>
+
     <xsl:template match="page">
         <mxGraphModel>
             <root>
@@ -16,7 +18,7 @@
     <xsl:template match="box">
         <mxCell id="{@id}" vertex="1" parent="1">
             <Object formula="{.}" as="value"/>
-            <mxGeometry x="{@x * 30}" y="{@y * 30}" width="{@w * 30}" height="30" as="geometry"/>
+            <mxGeometry x="{@x * $d - @w div 2}" y="{@y * $d - $d div 2}" width="{@w * $d}" height="{$d}" as="geometry"/>
         </mxCell>
     </xsl:template>
 
@@ -24,7 +26,13 @@
     <xsl:template match="arrow">
         <mxCell id="{generate-id()}" edge="1" parent="1" source="{@from}" target="{@to}">
             <Object label="{.}" as="value"/>
-            <mxGeometry relative="1" as="geometry"/>
+            <mxGeometry relative="1" as="geometry">
+                <xsl:if test="@x or @y">
+                    <Array as="points">
+                        <Object x="{@x * $d}" y="{@y * $d}"/>
+                    </Array>
+                </xsl:if>
+            </mxGeometry>
         </mxCell>
     </xsl:template>
 
