@@ -18,7 +18,7 @@
     <xsl:template match="box">
         <mxCell id="{@id}" vertex="1" parent="1">
             <Object formula="{.}" as="value"/>
-            <mxGeometry x="{@x * $d - @w div 2}" y="{@y * $d - $d div 2}" width="{@w * $d}" height="{$d}" as="geometry"/>
+            <mxGeometry x="{($d * @x) - ($d * @w div 2)}" y="{($d * @y) - ($d div 2)}" width="{$d * @w}" height="{$d}" as="geometry"/>
         </mxCell>
     </xsl:template>
 
