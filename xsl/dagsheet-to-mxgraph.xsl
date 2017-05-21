@@ -3,7 +3,7 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
-    <xsl:template match="root">
+    <xsl:template match="page">
         <mxGraphModel>
             <root>
                 <mxCell id="0"/>
@@ -12,6 +12,14 @@
             </root>
         </mxGraphModel>
     </xsl:template>
+
+    <xsl:template match="box">
+        <mxCell id="{@id}" vertex="1" parent="1">
+            <Object formula="{@formula}" as="value"/>
+            <mxGeometry x="{@x * 30}" y="{@y * 30}" width="{@w * 30}" height="30" as="geometry"/>
+        </mxCell>
+    </xsl:template>
+
 
     <xsl:template match="arrow">
         <mxCell id="{generate-id()}" edge="1" parent="1" source="{@from}" target="{@to}">
