@@ -4,27 +4,36 @@
     <xsl:strip-space elements="*"/>
 
     <xsl:variable name="d">30</xsl:variable>
+    <!-- In examples this is an integer, but strings seem to work? -->
+    <xsl:variable name="parent_id">my_parent</xsl:variable>
+    <xsl:variable name="root_id">my_root</xsl:variable>
 
     <xsl:template match="page">
         <mxGraphModel>
             <root>
-                <mxCell id="0"/>
-                <mxCell id="1" parent="0"/>
+                <mxCell id="{$root_id}"/>
+                <mxCell id="{$parent_id}" parent="{$root_id}"/>
                 <xsl:apply-templates select="node()|@*"/>
             </root>
         </mxGraphModel>
     </xsl:template>
 
     <xsl:template match="box">
-        <mxCell id="{@id}" vertex="1" parent="1">
+        <xsl:variable name="w"><!-- Default width: Couldn't get more concise XPath to work... -->
+            <xsl:choose>
+                <xsl:when test="@w"><xsl:value-of select="@w"/></xsl:when>
+                <xsl:otherwise>2.5</xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <mxCell id="{@id}" vertex="1" parent="{$parent_id}">
             <Object formula="{.}" as="value"/>
-            <mxGeometry x="{($d * @x) - ($d * @w div 2)}" y="{($d * @y) - ($d div 2)}" width="{$d * @w}" height="{$d}" as="geometry"/>
+            <mxGeometry x="{($d * @x) - ($d * number($w) div 2)}" y="{($d * @y) - ($d div 2)}" width="{$d * number($w)}" height="{$d}" as="geometry"/>
         </mxCell>
     </xsl:template>
 
 
     <xsl:template match="arrow">
-        <mxCell id="{generate-id()}" edge="1" parent="1" source="{@from}" target="{@to}">
+        <mxCell id="{generate-id()}" edge="1" parent="{$parent_id}" source="{@from}" target="{@to}">
             <Object label="{.}" as="value"/>
             <mxGeometry relative="1" as="geometry">
                 <xsl:if test="@x or @y">
