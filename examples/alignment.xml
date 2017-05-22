@@ -1,39 +1,39 @@
 <page>
     <!-- Globals -->
-    <box id="f" x="15" y="2" w="30">f = function(a, b, n, nw, w){if (a==b &amp;&amp; nws[1]+1&gt;=n[1]-1 &amp;&amp; nws[1]+1&gt;w[1]-1) {return ["\\",nws[1]+1]} else if (n[1]&gt;w[1]) {return ["|",n[1]-1]} else {return ["-",w[1]-1]} }</box>
+    <box id="f" x="15" y="2" w="30">f = function(a, b, n, nw, w){if (a==b &amp;&amp; nw[1]+1&gt;=n[1]-1 &amp;&amp; nw[1]+1&gt;w[1]-1) {return ["↖",nw[1]+1]} else if (n[1]&gt;w[1]) {return ["↑",n[1]-1]} else {return ["←",w[1]-1]} }</box>
     <box id="h" x="6" y="3.5" w="5">h = "ABC"</box>
     <box id="v" x="6" y="5" w="5">v = "BCD"</box>
 
     <!-- Column labels -->
-    <box id="1" x="10" y="8">h[0]</box>
-    <box id="2" x="14" y="8">h[1]</box>
-    <box id="3" x="18" y="8">h[2]</box>
+    <box id="1" x="15" y="6">h[0]</box>
+    <box id="2" x="21" y="6">h[1]</box>
+    <box id="3" x="27" y="6">h[2]</box>
 
     <!-- Row labels -->
-    <box id="10" x="2" y="12">v[0]</box>
-    <box id="20" x="2" y="14">v[1]</box>
-    <box id="30" x="2" y="16">v[2]</box>
+    <box id="10" x="5" y="10">v[0]</box>
+    <box id="20" x="5" y="12">v[1]</box>
+    <box id="30" x="5" y="14">v[2]</box>
 
     <!-- Lattice -->
-    <box id="11" x="6" y="10">f(h[0],v[0],n,nw,w)</box>
-    <box id="12" x="10" y="10">f(h[1],v[0],n,nw,w)</box>
-    <box id="13" x="14" y="10">f(h[2],v[0],n,nw,w)</box>
-    <box id="14" x="18" y="10">f(h[3],v[0],n,nw,w)</box>
+    <box id="11" x="9" y="8">['',0]</box>
+    <box id="12" x="15" y="8">['←',-1]</box>
+    <box id="13" x="21" y="8">['←',-2]</box>
+    <box id="14" x="27" y="8">['←',-3]</box>
 
-    <box id="21" x="6" y="12">f(h[0],v[1],n,nw,w)</box>
-    <box id="22" x="10" y="12">f(h[1],v[1],n,nw,w)</box>
-    <box id="23" x="14" y="12">f(h[2],v[1],n,nw,w)</box>
-    <box id="24" x="18" y="12">f(h[2],v[0],n,nw,w)</box>
+    <box id="21" x="9" y="10">['↑',-1]</box>
+    <box id="22" x="15" y="10" w="5">f(h[0],v[0],n,nw,w)</box>
+    <box id="23" x="21" y="10" w="5">f(h[1],v[0],n,nw,w)</box>
+    <box id="24" x="27" y="10" w="5">f(h[2],v[0],n,nw,w)</box>
 
-    <box id="31" x="6" y="14">f(h[0],v[2],n,nw,w)</box>
-    <box id="32" x="10" y="14">f(h[1],v[2],n,nw,w)</box>
-    <box id="33" x="14" y="14">f(h[2],v[2],n,nw,w)</box>
-    <box id="34" x="18" y="14">f(h[2],v[0],n,nw,w)</box>
+    <box id="31" x="9" y="12">['↑',-2]</box>
+    <box id="32" x="15" y="12" w="5">f(h[0],v[1],n,nw,w)</box>
+    <box id="33" x="21" y="12" w="5">f(h[1],v[1],n,nw,w)</box>
+    <box id="34" x="27" y="12" w="5">f(h[2],v[1],n,nw,w)</box>
 
-    <box id="41" x="6" y="16">f(h[0],v[2],n,nw,w)</box>
-    <box id="42" x="10" y="16">f(h[1],v[2],n,nw,w)</box>
-    <box id="43" x="14" y="16">f(h[2],v[2],n,nw,w)</box>
-    <box id="44" x="18" y="16">f(h[2],v[0],n,nw,w)</box>
+    <box id="41" x="9" y="14">['↑',-3]</box>
+    <box id="42" x="15" y="14" w="5">f(h[0],v[2],n,nw,w)</box>
+    <box id="43" x="21" y="14" w="5">f(h[1],v[2],n,nw,w)</box>
+    <box id="44" x="27" y="14" w="5">f(h[2],v[2],n,nw,w)</box>
 
     <!-- N Arrows -->
     <arrow from="11" to="21">n</arrow>
