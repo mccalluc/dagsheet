@@ -1,0 +1,48 @@
+<page>
+    <box id="f" x="4" y="1" w="7">f = function(a,b){return a+b}</box>
+    <box id="z" x="2" y="3">z = 0</box>
+
+    <box id="1" x="10" y="1">1</box>
+
+    <arrow from="1" to="2">a</arrow>
+    <arrow from="1" to="3">b</arrow>
+
+    <box id="2" x="8" y="3">f(a,z)</box>
+    <box id="3" x="12" y="3">f(z,b)</box>
+
+    <arrow from="2" to="4">a</arrow>
+    <arrow from="2" to="5">b</arrow>
+    <arrow from="3" to="5">a</arrow>
+    <arrow from="3" to="6">b</arrow>
+
+    <box id="4" x="6" y="5">f(a,z)</box>
+    <box id="5" x="10" y="5">f(a,b)</box>
+    <box id="6" x="14" y="5">f(z,b)</box>
+
+    <arrow from="4" to="7">a</arrow>
+    <arrow from="4" to="8">b</arrow>
+    <arrow from="5" to="8">a</arrow>
+    <arrow from="5" to="9">b</arrow>
+    <arrow from="6" to="9">a</arrow>
+    <arrow from="6" to="10">b</arrow>
+
+    <box id="7" x="4" y="7">f(a,z)</box>
+    <box id="8" x="8" y="7">f(a,b)</box>
+    <box id="9" x="12" y="7">f(a,b)</box>
+    <box id="10" x="16" y="7">f(z,b)</box>
+
+    <arrow from="7" to="11">a</arrow>
+    <arrow from="7" to="12">b</arrow>
+    <arrow from="8" to="12">a</arrow>
+    <arrow from="8" to="13">b</arrow>
+    <arrow from="9" to="13">a</arrow>
+    <arrow from="9" to="14">b</arrow>
+    <arrow from="10" to="14">a</arrow>
+    <arrow from="10" to="15">b</arrow>
+
+    <box id="11" x="2" y="9">f(a,z)</box>
+    <box id="12" x="6" y="9">f(a,b)</box>
+    <box id="13" x="10" y="9">f(a,b)</box>
+    <box id="14" x="14" y="9">f(a,b)</box>
+    <box id="15" x="18" y="9">f(z,b)</box>
+</page>

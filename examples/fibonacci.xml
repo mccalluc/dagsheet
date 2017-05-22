@@ -1,10 +1,12 @@
 <page>
-    <box id="2" x="2" y="1" w="3">1</box>
-    <box id="3" x="2" y="3" w="3">1</box>
-    <box id="4" x="2" y="5" w="3">a+b</box>
-    <box id="5" x="2" y="7" w="3">a+b</box>
-    <box id="6" x="2" y="9" w="3">a+b</box>
-    <box id="7" x="2" y="11" w="3">a+b</box>
+    <box id="2" x="2" y="1">1</box>
+    <box id="3" x="2" y="3">1</box>
+    <box id="4" x="2" y="5">f(a,b)</box>
+    <box id="5" x="2" y="7">f(a,b)</box>
+    <box id="6" x="2" y="9">f(a,b)</box>
+    <box id="7" x="2" y="11">f(a,b)</box>
+
+    <box id="10" x="9" y="1" w="9">f = function(a, b) {return a + b}</box>
 
     <arrow from="2" to="4" x="5" y="3">a</arrow>
     <arrow from="3" to="4">b</arrow>

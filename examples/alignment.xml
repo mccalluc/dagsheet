@@ -1,0 +1,83 @@
+<page>
+    <!-- Globals -->
+    <box id="f" x="15" y="2" w="30">f = function(a, b, n, nw, w){if (a==b &amp;&amp; nw[1]+1&gt;=n[1]-1 &amp;&amp; nw[1]+1&gt;w[1]-1) {return ["↖",nw[1]+1]} else if (n[1]&gt;w[1]) {return ["↑",n[1]-1]} else {return ["←",w[1]-1]} }</box>
+    <box id="h" x="6" y="3.5" w="5">h = "ABC"</box>
+    <box id="v" x="6" y="5" w="5">v = "BCD"</box>
+
+    <!-- Column labels -->
+    <box id="1" x="15" y="6">h[0]</box>
+    <box id="2" x="21" y="6">h[1]</box>
+    <box id="3" x="27" y="6">h[2]</box>
+
+    <!-- Row labels -->
+    <box id="10" x="5" y="10">v[0]</box>
+    <box id="20" x="5" y="12">v[1]</box>
+    <box id="30" x="5" y="14">v[2]</box>
+
+    <!-- Lattice -->
+    <box id="11" x="9" y="8">['',0]</box>
+    <box id="12" x="15" y="8">['←',-1]</box>
+    <box id="13" x="21" y="8">['←',-2]</box>
+    <box id="14" x="27" y="8">['←',-3]</box>
+
+    <box id="21" x="9" y="10">['↑',-1]</box>
+    <box id="22" x="15" y="10" w="5">f(h[0],v[0],n,nw,w)</box>
+    <box id="23" x="21" y="10" w="5">f(h[1],v[0],n,nw,w)</box>
+    <box id="24" x="27" y="10" w="5">f(h[2],v[0],n,nw,w)</box>
+
+    <box id="31" x="9" y="12">['↑',-2]</box>
+    <box id="32" x="15" y="12" w="5">f(h[0],v[1],n,nw,w)</box>
+    <box id="33" x="21" y="12" w="5">f(h[1],v[1],n,nw,w)</box>
+    <box id="34" x="27" y="12" w="5">f(h[2],v[1],n,nw,w)</box>
+
+    <box id="41" x="9" y="14">['↑',-3]</box>
+    <box id="42" x="15" y="14" w="5">f(h[0],v[2],n,nw,w)</box>
+    <box id="43" x="21" y="14" w="5">f(h[1],v[2],n,nw,w)</box>
+    <box id="44" x="27" y="14" w="5">f(h[2],v[2],n,nw,w)</box>
+
+    <!-- N Arrows -->
+    <arrow from="11" to="21">n</arrow>
+    <arrow from="12" to="22">n</arrow>
+    <arrow from="13" to="23">n</arrow>
+    <arrow from="14" to="24">n</arrow>
+
+    <arrow from="21" to="31">n</arrow>
+    <arrow from="22" to="32">n</arrow>
+    <arrow from="23" to="33">n</arrow>
+    <arrow from="24" to="34">n</arrow>
+
+    <arrow from="31" to="41">n</arrow>
+    <arrow from="32" to="42">n</arrow>
+    <arrow from="33" to="43">n</arrow>
+    <arrow from="34" to="44">n</arrow>
+
+    <!-- W Arrows -->
+    <arrow from="11" to="12">w</arrow>
+    <arrow from="12" to="13">w</arrow>
+    <arrow from="13" to="14">w</arrow>
+
+    <arrow from="21" to="22">w</arrow>
+    <arrow from="22" to="23">w</arrow>
+    <arrow from="23" to="24">w</arrow>
+
+    <arrow from="31" to="32">w</arrow>
+    <arrow from="32" to="33">w</arrow>
+    <arrow from="33" to="34">w</arrow>
+
+    <arrow from="41" to="42">w</arrow>
+    <arrow from="42" to="43">w</arrow>
+    <arrow from="43" to="44">w</arrow>
+
+    <!-- NW Arrows -->
+    <arrow from="11" to="22">nw</arrow>
+    <arrow from="12" to="23">nw</arrow>
+    <arrow from="13" to="24">nw</arrow>
+
+    <arrow from="21" to="32">nw</arrow>
+    <arrow from="22" to="33">nw</arrow>
+    <arrow from="23" to="34">nw</arrow>
+
+    <arrow from="31" to="42">nw</arrow>
+    <arrow from="32" to="43">nw</arrow>
+    <arrow from="33" to="44">nw</arrow>
+</page>
