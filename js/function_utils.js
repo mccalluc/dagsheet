@@ -17,6 +17,7 @@ define([],
           'return ' + statements[statements.length-1];
       var mod_body = statements.join(';');
       for_apply.push(mod_body);
+      console.log(mod_body);
       return Function.apply(
           {}, // "this"
           for_apply
