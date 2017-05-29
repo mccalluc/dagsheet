@@ -11,6 +11,12 @@ define(['graph_utils', 'mx_utils'],
         graph.setAllowDanglingEdges(false);
         graph.setDisconnectOnMove(false);
 
+        var edge_style = graph.getStylesheet().getDefaultEdgeStyle();
+        edge_style[mxConstants.STYLE_ROUNDED] = '1'; // STYLE_ROUNDED is another possibility.
+        // TODO: I want to set an opaque background on the edge label:
+        // This does not do it.
+        //edge_style[mxConstants.STYLE_LABEL_BACKGROUNDCOLOR] = '#ffffff';
+
         new mxKeyHandler(graph);
 
         graph.getLabel = mx_utils.get_label;
