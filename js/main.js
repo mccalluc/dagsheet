@@ -22,26 +22,35 @@ define(['graph_utils', 'mx_utils'],
         graph.getLabel = mx_utils.get_label;
         graph.getEditingValue = mx_utils.get_editing_value;
 
-        document.getElementById('export').onclick = function() {
+        document.getElementById('download').onclick = function() {
+          // TODO: How do I move this event handler out and retain a reference to graph?
           var model = graph.getModel();
           model.beginUpdate();
           try {
-            console.log(model.cells);
             for (var k in model.cells) {
               var cell = model.cells[k];
-              delete cell.graph;
+              delete cell.graph; // The native serializer recurses infinitely if this is left in place.
             }
           } finally {
             model.endUpdate();
           }
 
-          console.log(new mxCodec().encode(graph.getModel()));
+          var xml = new mxCodec().encode(graph.getModel());
+          var xml_string = new XMLSerializer().serializeToString(xml);
 
+          var link = document.createElement('a');
+          link.download = 'dagsheet.xml';
+          link.href = 'data:text/plain,' + encodeURIComponent(xml_string);
+          link.target = '_blank';
+          document.body.appendChild(link); // Only needed by FF?
+          link.click();
+          document.body.removeChild(link);
+          
           model.beginUpdate();
           try {
             for (var k in model.cells) {
               var cell = model.cells[k];
-              cell.graph = graph;
+              cell.graph = graph; // Replace the property we removed above.
             }
           } finally {
             model.endUpdate();
