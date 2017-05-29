@@ -12,8 +12,8 @@ define(['function_utils', 'graph_utils'],
         } else {
           output_display = cell.value.output;
         }
-        label = cell.value.formula;
-        if (! label.match(/^\s*[a-zA-Z]\w*\s*=[^=]/) {
+        label = String(cell.value.formula);
+        if (! label.match(/^\s*[a-zA-Z]\w*\s*=[^=]/)) {
            // If not a constant definition:
           label += ' → ' + output_display;
         }
