@@ -34,6 +34,42 @@ define(['function_utils', 'graph_utils'],
 
     var globals = {};
 
+    function make_download_handler(graph) {
+      return function () {
+        var model = graph.getModel();
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            delete cell.graph; // The native serializer recurses infinitely if this is left in place.
+          }
+        } finally {
+          model.endUpdate();
+        }
+
+        var xml = new mxCodec().encode(model);
+        var xml_string = new XMLSerializer().serializeToString(xml);
+
+        var link = document.createElement('a');
+        link.download = 'dagsheet.xml';
+        link.href = 'data:text/plain,' + encodeURIComponent(xml_string);
+        link.target = '_blank';
+        document.body.appendChild(link); // Only needed by FF?
+        link.click();
+        document.body.removeChild(link);
+
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            cell.graph = graph; // Replace the property we removed above.
+          }
+        } finally {
+          model.endUpdate();
+        }
+      }
+    }
+
     function value_for_cell_changed(cell, value) {
       var previous = cell.value;
       if (cell.isVertex()) {
@@ -94,7 +130,8 @@ define(['function_utils', 'graph_utils'],
       get_editing_value: get_editing_value,
       value_for_cell_changed: value_for_cell_changed,
       decode: decode,
-      encode: encode
+      encode: encode,
+      make_download_handler: make_download_handler
     }
   }
 );
