@@ -34,42 +34,6 @@ define(['function_utils', 'graph_utils'],
 
     var globals = {};
 
-    function make_download_handler(graph) {
-      return function () {
-        var model = graph.getModel();
-        model.beginUpdate();
-        try {
-          for (var k in model.cells) {
-            var cell = model.cells[k];
-            delete cell.graph; // The native serializer recurses infinitely if this is left in place.
-          }
-        } finally {
-          model.endUpdate();
-        }
-
-        var xml = new mxCodec().encode(model);
-        var xml_string = new XMLSerializer().serializeToString(xml);
-
-        var link = document.createElement('a');
-        link.download = 'dagsheet.xml';
-        link.href = 'data:text/plain,' + encodeURIComponent(xml_string);
-        link.target = '_blank';
-        document.body.appendChild(link); // Only needed by FF?
-        link.click();
-        document.body.removeChild(link);
-
-        model.beginUpdate();
-        try {
-          for (var k in model.cells) {
-            var cell = model.cells[k];
-            cell.graph = graph; // Replace the property we removed above.
-          }
-        } finally {
-          model.endUpdate();
-        }
-      }
-    }
-
     function value_for_cell_changed(cell, value) {
       var previous = cell.value;
       if (cell.isVertex()) {
@@ -107,13 +71,50 @@ define(['function_utils', 'graph_utils'],
       return previous;
     }
 
+    function make_download_handler(graph) {
+      return function () {
+        var model = graph.getModel();
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            delete cell.graph; // The native serializer recurses infinitely if this is left in place.
+          }
+        } finally {
+          model.endUpdate();
+        }
+
+        var xml = encode(graph);
+        var xml_string = new XMLSerializer().serializeToString(xml);
+
+        var link = document.createElement('a');
+        link.download = 'dagsheet.xml';
+        link.href = 'data:text/plain,' + encodeURIComponent(xml_string);
+        link.target = '_blank';
+        document.body.appendChild(link); // Only needed by FF?
+        link.click();
+        document.body.removeChild(link);
+
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            cell.graph = graph; // Replace the property we removed above.
+          }
+        } finally {
+          model.endUpdate();
+        }
+      }
+    }
+
     function decode(graph, filename) {
       var input_xml = mxUtils.load(filename).getDocumentElement();
+
       var xsl = mxUtils.load('xsl/dagsheet-to-mxgraph.xsl').getDocumentElement();
       var processor = new XSLTProcessor();
       processor.importStylesheet(xsl);
-      var root = processor.transformToDocument(input_xml).documentElement;
 
+      var root = processor.transformToDocument(input_xml).documentElement;
       console.log(root);
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
@@ -122,7 +123,6 @@ define(['function_utils', 'graph_utils'],
     function encode(graph) {
       var codec = new mxCodec();
       return codec.encode(graph.getModel());
-
     }
 
     return {
