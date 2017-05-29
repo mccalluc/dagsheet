@@ -78,8 +78,6 @@ define(['function_utils', 'graph_utils'],
       processor.importStylesheet(xsl);
       var root = processor.transformToDocument(input_xml).documentElement;
 
-
-      // var root = mxUtils.load(filename).getDocumentElement();
       console.log(root);
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
@@ -88,6 +86,7 @@ define(['function_utils', 'graph_utils'],
     function encode(graph) {
       var codec = new mxCodec();
       return codec.encode(graph.getModel());
+
     }
 
     return {

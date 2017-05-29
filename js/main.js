@@ -22,6 +22,32 @@ define(['graph_utils', 'mx_utils'],
         graph.getLabel = mx_utils.get_label;
         graph.getEditingValue = mx_utils.get_editing_value;
 
+        document.getElementById('export').onclick = function() {
+          var model = graph.getModel();
+          model.beginUpdate();
+          try {
+            console.log(model.cells);
+            for (var k in model.cells) {
+              var cell = model.cells[k];
+              delete cell.graph;
+            }
+          } finally {
+            model.endUpdate();
+          }
+
+          console.log(new mxCodec().encode(graph.getModel()));
+
+          model.beginUpdate();
+          try {
+            for (var k in model.cells) {
+              var cell = model.cells[k];
+              cell.graph = graph;
+            }
+          } finally {
+            model.endUpdate();
+          }
+        };
+
         var model = graph.getModel();
         model.valueForCellChanged = mx_utils.value_for_cell_changed;
 

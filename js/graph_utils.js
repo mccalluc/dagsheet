@@ -126,6 +126,9 @@ define([],
           var cell = model.cells[in_order[i]];
           model.setValue(cell, cell.value.formula);
           cell.graph = graph;
+          // This is used by the value_for_cell_changed callback,
+          // but it also causes infinite recursion if present during encoding.
+          // TODO: Find something better?
         }
       } finally {
         model.endUpdate();
