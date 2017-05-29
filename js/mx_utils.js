@@ -122,7 +122,15 @@ define(['function_utils', 'graph_utils'],
 
     function encode(graph) {
       var codec = new mxCodec();
-      return codec.encode(graph.getModel());
+      var input_xml = codec.encode(graph.getModel());
+
+      var xsl = mxUtils.load('xsl/mxgraph-to-dagsheet.xsl').getDocumentElement();
+      var processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+
+      var root = processor.transformToDocument(input_xml).documentElement;
+      console.log(root);
+      return root;
     }
 
     return {

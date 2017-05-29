@@ -14,7 +14,7 @@
             <xsl:apply-templates select="node()|@*"/>
         </page>
     </xsl:template>
-    
+
     <!-- These are implicit in dagsheet xml. -->
     <xsl:template match="mxCell[@id=$root_id]"></xsl:template>
     <xsl:template match="mxCell[@id=$parent_id]"></xsl:template>
@@ -28,12 +28,16 @@
             <xsl:value-of select="./Object/@formula"/>
         </box>
     </xsl:template>
-    
+
     <xsl:template match="mxCell[@edge=1]">
-        <arrow from="./@source" to="./@target">
+        <arrow from="{./@source}" to="{./@target}">
             <xsl:if test="./mxGeometry/Array">
-                <xsl:attribute name="x" select="./mxGeometry/Array/Object/@x div $d"/>
-                <xsl:attribute name="y" select="./mxGeometry/Array/Object/@y div $d"/>
+                <xsl:attribute name="x">
+                    <xsl:value-of select="./mxGeometry/Array/Object/@x div $d"/>
+                </xsl:attribute>
+                <xsl:attribute name="y">
+                    <xsl:value-of select="./mxGeometry/Array/Object/@y div $d"/>
+                </xsl:attribute>
             </xsl:if>
             <xsl:value-of select="./Object/@label"/>
         </arrow>
