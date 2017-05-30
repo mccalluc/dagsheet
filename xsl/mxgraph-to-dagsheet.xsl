@@ -20,9 +20,11 @@
     <xsl:template match="mxCell[@id=$parent_id]"></xsl:template>
 
     <xsl:template match="mxCell[@vertex=1]">
-        <xsl:variable name="x" select="./mxGeometry/@x"/>
-        <xsl:variable name="y" select="./mxGeometry/@y"/>
-        <xsl:variable name="width" select="./mxGeometry/@width"/>
+        <!-- The serializer seems to drop attributes if they equal zero.
+             sum() is a work-around. -->
+        <xsl:variable name="x" select="sum(./mxGeometry/@x)"/>
+        <xsl:variable name="y" select="sum(./mxGeometry/@y)"/>
+        <xsl:variable name="width" select="sum(./mxGeometry/@width)"/>
         <box id="{@id}"
              x="{($x + $width div 2) div $d}"
              y="{($y + $d div 2) div $d}"

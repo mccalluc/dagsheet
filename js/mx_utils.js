@@ -115,7 +115,7 @@ define(['function_utils', 'graph_utils'],
       processor.importStylesheet(xsl);
 
       var root = processor.transformToDocument(input_xml).documentElement;
-      console.log(root);
+      console.log(new XMLSerializer().serializeToString(root));
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
     }
@@ -129,7 +129,7 @@ define(['function_utils', 'graph_utils'],
       processor.importStylesheet(xsl);
 
       var root = processor.transformToDocument(input_xml).documentElement;
-      console.log(root);
+      console.log(new XMLSerializer().serializeToString(root));
       return root;
     }
 
