@@ -9,7 +9,7 @@
     <xsl:variable name="parent_id">my_parent</xsl:variable>
     <xsl:variable name="root_id">my_root</xsl:variable>
 
-    <xsl:template match="mxGraphModel/root">
+    <xsl:template match="root">
         <page>
             <xsl:apply-templates select="node()|@*"/>
         </page>
@@ -23,7 +23,9 @@
         <xsl:variable name="x" select="./mxGeometry/@x"/>
         <xsl:variable name="y" select="./mxGeometry/@y"/>
         <xsl:variable name="width" select="./mxGeometry/@width"/>
-        <box x="{$x div $d}" y="{$y div $d}" w="{$width div $d}">
+        <box x="{($x + $width div 2) div $d}"
+             y="{($y + $d div 2) div $d}"
+             w="{$width div $d}">
             <!-- TODO: adjust based on width. -->
             <xsl:value-of select="./Object/@formula"/>
         </box>
