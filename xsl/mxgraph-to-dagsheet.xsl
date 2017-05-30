@@ -3,9 +3,12 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
-    <!-- TODO: import these so the two sheets will be in sync. -->
+    <!--
+      Would like to import these so the two sheets will be in sync,
+      but Chrome doesn't support it:
+      https://bugs.chromium.org/p/chromium/issues/detail?id=8441#c30
+    -->
     <xsl:variable name="d">30</xsl:variable>
-    <!-- In examples this is an integer, but strings seem to work? -->
     <xsl:variable name="parent_id">my_parent</xsl:variable>
     <xsl:variable name="root_id">my_root</xsl:variable>
 
@@ -15,9 +18,7 @@
         </page>
     </xsl:template>
 
-    <!-- These are implicit in dagsheet xml. -->
-    <xsl:template match="mxCell[@id=$root_id]"></xsl:template>
-    <xsl:template match="mxCell[@id=$parent_id]"></xsl:template>
+    <xsl:template match="mxCell"><!-- No output --></xsl:template>
 
     <xsl:template match="mxCell[@vertex=1]">
         <!-- The serializer seems to drop attributes if they equal zero.
@@ -46,6 +47,11 @@
             </xsl:if>
             <xsl:value-of select="./Object/@label"/>
         </arrow>
+    </xsl:template>
+
+    <xsl:template match="mxGraphModel">
+        <!-- This is needed by Chrome. -->
+        <xsl:apply-templates select="node()|@*"/>
     </xsl:template>
 
     <xsl:template match="node()|@*">

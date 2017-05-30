@@ -3,9 +3,13 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
+    <!--
+      Would like to import these so the two sheets will be in sync,
+      but Chrome doesn't support it:
+      https://bugs.chromium.org/p/chromium/issues/detail?id=8441#c30
+    -->
     <xsl:variable name="default_w">2.5</xsl:variable>
     <xsl:variable name="d">30</xsl:variable>
-    <!-- In examples this is an integer, but strings seem to work? -->
     <xsl:variable name="parent_id">my_parent</xsl:variable>
     <xsl:variable name="root_id">my_root</xsl:variable>
 
