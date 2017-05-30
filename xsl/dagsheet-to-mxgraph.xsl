@@ -3,8 +3,13 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
 
+    <!--
+      Would like to import these so the two sheets will be in sync,
+      but Chrome doesn't support it:
+      https://bugs.chromium.org/p/chromium/issues/detail?id=8441#c30
+    -->
+    <xsl:variable name="default_w">2.5</xsl:variable>
     <xsl:variable name="d">30</xsl:variable>
-    <!-- In examples this is an integer, but strings seem to work? -->
     <xsl:variable name="parent_id">my_parent</xsl:variable>
     <xsl:variable name="root_id">my_root</xsl:variable>
 
@@ -22,7 +27,7 @@
         <xsl:variable name="w"><!-- Default width: Couldn't get more concise XPath to work... -->
             <xsl:choose>
                 <xsl:when test="@w"><xsl:value-of select="@w"/></xsl:when>
-                <xsl:otherwise>2.5</xsl:otherwise>
+                <xsl:otherwise><xsl:value-of select="$default_w"/></xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <mxCell id="{@id}" vertex="1" parent="{$parent_id}">

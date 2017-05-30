@@ -12,7 +12,11 @@ define(['function_utils', 'graph_utils'],
         } else {
           output_display = cell.value.output;
         }
-        label = cell.value.formula + ' → ' + output_display;
+        label = String(cell.value.formula);
+        if (! label.match(/^\s*[a-zA-Z]\w*\s*=[^=]/)) {
+           // If not a constant definition:
+          label += ' → ' + output_display;
+        }
       } else if (cell.isEdge()) {
         label = cell.value.label;
       }
@@ -67,23 +71,66 @@ define(['function_utils', 'graph_utils'],
       return previous;
     }
 
+    function make_download_handler(graph) {
+      return function () {
+        var model = graph.getModel();
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            delete cell.graph; // The native serializer recurses infinitely if this is left in place.
+          }
+        } finally {
+          model.endUpdate();
+        }
+
+        var xml = encode(graph);
+        var xml_string = new XMLSerializer().serializeToString(xml);
+
+        var link = document.createElement('a');
+        link.download = 'dagsheet.xml';
+        link.href = 'data:text/plain,' + encodeURIComponent(xml_string);
+        link.target = '_blank';
+        document.body.appendChild(link); // Only needed by FF?
+        link.click();
+        document.body.removeChild(link);
+
+        model.beginUpdate();
+        try {
+          for (var k in model.cells) {
+            var cell = model.cells[k];
+            cell.graph = graph; // Replace the property we removed above.
+          }
+        } finally {
+          model.endUpdate();
+        }
+      }
+    }
+
     function decode(graph, filename) {
       var input_xml = mxUtils.load(filename).getDocumentElement();
+
       var xsl = mxUtils.load('xsl/dagsheet-to-mxgraph.xsl').getDocumentElement();
       var processor = new XSLTProcessor();
       processor.importStylesheet(xsl);
+
       var root = processor.transformToDocument(input_xml).documentElement;
-
-
-      // var root = mxUtils.load(filename).getDocumentElement();
-      console.log(root);
+      console.log(new XMLSerializer().serializeToString(root));
       var codec = new mxCodec(root.ownerDocument);
       codec.decode(root, graph.getModel());
     }
 
     function encode(graph) {
       var codec = new mxCodec();
-      return codec.encode(graph.getModel());
+      var input_xml = codec.encode(graph.getModel());
+
+      var xsl = mxUtils.load('xsl/mxgraph-to-dagsheet.xsl').getDocumentElement();
+      var processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+
+      var root = processor.transformToDocument(input_xml).documentElement;
+      console.log(new XMLSerializer().serializeToString(root));
+      return root;
     }
 
     return {
@@ -91,7 +138,8 @@ define(['function_utils', 'graph_utils'],
       get_editing_value: get_editing_value,
       value_for_cell_changed: value_for_cell_changed,
       decode: decode,
-      encode: encode
+      encode: encode,
+      make_download_handler: make_download_handler
     }
   }
 );
