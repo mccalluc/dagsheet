@@ -23,7 +23,8 @@
         <xsl:variable name="x" select="./mxGeometry/@x"/>
         <xsl:variable name="y" select="./mxGeometry/@y"/>
         <xsl:variable name="width" select="./mxGeometry/@width"/>
-        <box x="{($x + $width div 2) div $d}"
+        <box id="{@id}"
+             x="{($x + $width div 2) div $d}"
              y="{($y + $d div 2) div $d}"
              w="{$width div $d}">
             <!-- TODO: adjust based on width. -->
