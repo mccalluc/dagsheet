@@ -1,0 +1,42 @@
+<page>
+    <box id="a" x="8" y="1">a=2</box>
+    <box id="b" x="12" y="1">b=2</box>
+
+    <box id="a1" x="4" y="3">(a&gt;&gt;1)%2</box>
+    <box id="b1" x="8" y="3">(b&gt;&gt;1)%2</box>
+    <box id="a0" x="12" y="3">a%2</box>
+    <box id="b0" x="16" y="3">b%2</box>
+
+    <arrow from="a1" to="and1" x="2" y="4">a1</arrow>
+    <arrow from="b1" to="and1" x="3" y="4">b1</arrow>
+    <arrow from="a0" to="and0" x="10" y="4">a0</arrow>
+    <arrow from="b0" to="and0" x="11" y="4">b0</arrow>
+
+    <arrow from="a1" to="xor1">a1</arrow>
+    <arrow from="b1" to="xor1">b1</arrow>
+    <arrow from="a0" to="xor0">a0</arrow>
+    <arrow from="b0" to="xor0">b0</arrow>
+
+    <box id="and1" x="2" y="5">and(a1,b1)</box>
+    <box id="xor1" x="6" y="5">xor(a1,b1)</box>
+    <box id="and0" x="10" y="5">and(a0,b0)</box>
+    <box id="xor0" x="14" y="5">xor(a0,b0)</box>
+
+    <arrow from="xor1" to="and2" x="4" y="6">xor1</arrow>
+    <arrow from="xor1" to="xor2">xor1</arrow>
+    <arrow from="and0" to="and2" x="5" y="6">and0</arrow>
+    <arrow from="and0" to="xor2">and0</arrow>
+
+    <box id="and2" x="4" y="7"></box>
+    <box id="xor2" x="8" y="7"></box>
+
+    <arrow from="and1" to="carry"></arrow>
+    <arrow from="and2" to="carry"></arrow>
+
+    <box id="carry" x="2" y="9"></box>
+    <arrow from="carry" to="sum"></arrow>
+    <arrow from="xor2" to="sum"></arrow>
+    <arrow from="xor0" to="sum" x="14" y="9"></arrow>
+
+    <box id="sum" x="8" y="11"></box>
+</page>
